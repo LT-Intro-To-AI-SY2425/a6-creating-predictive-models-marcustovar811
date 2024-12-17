@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
 
 '''
 Run the program and consider the following questions:
@@ -9,8 +10,16 @@ Run the program and consider the following questions:
 '''
 
 data = pd.read_csv("part1-linear-regression/blood_pressure_data.csv")
-x = data["Age"]
-y = data["Blood Pressure"]
+x = data["Age"].values
+y = data["Blood Pressure"].values
+
+x = x.reshape(-1, 1)
+
+model = LinearRegression().fit(x, y)
+
+coefficient = float(model.coef_[0])
+y_intercept = float(model.intercept_)
+rsq = model.score(x, y)
 
 #sets the size of the graph
 plt.figure(figsize=(5,4))
